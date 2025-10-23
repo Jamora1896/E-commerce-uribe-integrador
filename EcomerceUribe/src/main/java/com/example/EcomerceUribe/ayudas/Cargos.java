@@ -4,6 +4,7 @@ public enum Cargos {
     Analista,
     Auxiliar,
     Profesional,
-    Vendedor
+    Vendedor;
+
 
 }

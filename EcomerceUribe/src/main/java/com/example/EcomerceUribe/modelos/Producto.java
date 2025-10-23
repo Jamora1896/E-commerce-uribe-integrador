@@ -11,12 +11,20 @@ public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
+    @Column(name = "fotografia", nullable = true)
     private String fotografia;
+    @Column(name = "descripcion", nullable = false, length = 200)
     private String descripcion;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categoria", nullable = false)
     private Categoria categoria;
+    @Column(name = "precio_unitario", nullable = false)
     private Integer precioUnitario;
+    @Column(name = "marca", nullable = true)
     private String marca;
+    @Column(name = "aplica_descuento", nullable = false)
     private boolean aplicaDescuento;
     @ManyToOne
     @JoinColumn(name = "fk_pedido", referencedColumnName = "id")

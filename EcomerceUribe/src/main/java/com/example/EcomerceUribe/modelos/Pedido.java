@@ -14,9 +14,13 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "monto_total", nullable = false)
     private Integer montoTotal;
+    @Column(name = "fecha_creacion", nullable = false)
     private LocalDate fechaCreacion;
+    @Column(name = "fecha_entrega", nullable = true)
     private LocalDate fechaEntrega;
+    @Column(name = "costo_envio", nullable = false)
     private Integer costoEnvio;
 
 
