@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class UsuarioServicio {
 
@@ -68,6 +70,21 @@ public class UsuarioServicio {
 
 
     }
+
+
+    //Buscar todos los usuario
+    public List<UsuarioGenericoDTO> buscarTodosLosUsuarios(){
+        List<Usuario> listaDeUsuariosConsultados=this.repositorio.findAll();
+        return this.mapa.convetir_lista_a_listadtogenerico(listaDeUsuariosConsultados);
+    }
+
+    //Buscar un usuario por Id
+
+
+    //Eliminar un usuario
+
+
+    // Modificar algunos datos de un usuario
 
 
 }
