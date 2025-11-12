@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductoServicio {
@@ -53,11 +54,88 @@ public class ProductoServicio {
         return this.mapa.convetir_lista_a_listaproductodto(listaDeProductosConsultados);
     }
 
-    //Buscar un usuario por Id
+    //Buscar un producto por Id
+    public  ProductoDTO buscarProductoPorId (Integer id){
+        Optional<Producto> productoQueEstoyBuscando=this.repositorio.findById(id);
+        if(!productoQueEstoyBuscando.isPresent()){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "No se encontro ningun usuario con el id "+id+" suministrado"
+            );
+        }
+        Producto productoEncontrado = productoQueEstoyBuscando.get();
+        return this.mapa.convertir_producto_a_productodto(productoEncontrado);
+    }
+
+    //Buscar un producto por fotografia
+    public  ProductoDTO buscarProductoGenericoPorFotografia (String fotografia){
+        Optional<Producto> productoQueEstoyBuscando=this.repositorio.findByFotografia(fotografia);
+        if(!productoQueEstoyBuscando.isPresent()){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "No se encontro ningun producto con la fotografía "+fotografia+" suministrado"
+            );
+        }
+        Producto productoEncontrado = productoQueEstoyBuscando.get();
+        return this.mapa.convertir_producto_a_productodto(productoEncontrado);
+    }
+
+    //Eliminar un producto
+    public void eliminarProducto(Integer id){
+        Optional<Producto> productoQueEstoyBuscando=this.repositorio.findById(id);
+        if(!productoQueEstoyBuscando.isPresent()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "No se encontro ningun producto con el id " + id + " suministrado"
+            );
+        }
+        Producto productoEncontrado = productoQueEstoyBuscando.get();
+        try {
+            this.repositorio.delete(productoEncontrado);
+        } catch (Exception error) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo eliminar el producto" +error.getMessage()
+            );
+
+        }
+
+    }
 
 
-    //Eliminar un usuario
+    // Modificar algunos datos de un producto
+    public ProductoDTO actualizarProducto(Integer id, Producto datosActualizados) {
+        Optional<Producto> productoQueEstoyBuscando = this.repositorio.findById(id);
+        if (!productoQueEstoyBuscando.isPresent()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "No se encontro ningun usuario con el id " + id + " suministrado"
+            );
+
+        }
+        Producto productoEncontrado = productoQueEstoyBuscando.get();
+
+        // aplicar validaciones
 
 
-    // Modificar algunos datos de un usuario
+        // actualizo los campos que se permitieron modificar
+
+        productoEncontrado.setNombre(datosActualizados.getNombre());
+        productoEncontrado.setFotografia(datosActualizados.getFotografia());
+
+
+        //concluyo la operacion en la bd
+        Producto productoActualizado = this.repositorio.save(productoEncontrado);
+
+
+        if (productoActualizado == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Error al actualizar el usuario en la base de datos, intenta nuevamente"
+            );
+
+        }
+
+        return this.mapa.convertir_producto_a_productodto(productoActualizado);
+    }
 }
