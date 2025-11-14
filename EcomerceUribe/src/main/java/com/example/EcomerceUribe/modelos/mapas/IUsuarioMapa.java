@@ -4,7 +4,7 @@ import com.example.EcomerceUribe.modelos.DTOS.UsuarioEspecialDTO;
 import com.example.EcomerceUribe.modelos.DTOS.UsuarioGenericoDTO;
 import com.example.EcomerceUribe.modelos.Usuario;
 import org.mapstruct.Mapper;
-import org.springframework.web.bind.annotation.Mapping;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 

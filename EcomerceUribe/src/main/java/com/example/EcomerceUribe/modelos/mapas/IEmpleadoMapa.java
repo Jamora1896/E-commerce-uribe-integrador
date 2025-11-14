@@ -11,7 +11,7 @@ import java.util.List;
 public interface IEmpleadoMapa {
 
     @Mapping(source = "cargo", target = "cargo")
-    @Mapping(source = "salario", target = "salarrio")
+    @Mapping(source = "salario", target = "salario")
     @Mapping(source = "sede", target = "sede")
     EmpleadoDTO convertir_empleado_a_empleadodto(Empleado empleado);
 

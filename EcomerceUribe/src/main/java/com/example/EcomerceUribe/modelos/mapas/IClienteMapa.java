@@ -16,9 +16,7 @@ public interface IClienteMapa {
     @Mapping(source ="calificacion", target = "calificacion")
     @Mapping(source ="referenciaPago", target = "referenciaPago")
 
-
     ClienteDTO convertir_cliente_a_clientedto(Cliente cliente);
-
 
     List<ClienteDTO> convetir_lista_a_listaclientedto(List<Cliente> lista);
 
