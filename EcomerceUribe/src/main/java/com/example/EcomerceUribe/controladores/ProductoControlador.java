@@ -30,7 +30,7 @@ public class ProductoControlador {
 
     //guardar
     @Operation(summary = "Crear un  producto en la base de datos")
-    @PostMapping(produces = "application/son")
+    @PostMapping(produces = "application/json")
     public ResponseEntity<ProductoDTO> guardar(@RequestBody Producto datos) {
         ProductoDTO respuesta = this.servicio.guardarProducto (datos);
         return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
@@ -38,7 +38,7 @@ public class ProductoControlador {
 
     //listar todos
     @Operation(summary = "Listar todos los productos guardados en la base de datos")
-    @GetMapping(produces = "application/son")
+    @GetMapping(consumes = "application/json",produces = "application/json")
     public ResponseEntity<List<ProductoDTO>> listar() {
         List<ProductoDTO> respuesta = this.servicio.buscarTodosLosProductos();
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
@@ -46,7 +46,7 @@ public class ProductoControlador {
 
     //buscar por ID
     @Operation(summary = "Buscar producto en la base de datos")
-    @GetMapping(value = "/{id}", produces = "application/son")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<ProductoDTO> buscarporId(@PathVariable Integer id) {
         ProductoDTO respuesta = this.servicio.buscarProductoPorId(id);
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
@@ -54,7 +54,7 @@ public class ProductoControlador {
 
     //eliminar
     @Operation(summary = "Eliminar producto en la base de datos")
-    @DeleteMapping(value = "/{id}", produces = "application/son")
+    @DeleteMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
         this.servicio.eliminarProducto(id);
         return ResponseEntity.noContent().build();
@@ -62,7 +62,7 @@ public class ProductoControlador {
 
     //modificar
     @Operation(summary = "Modifica nombre y fotografia de producto en la base de datos")
-    @PutMapping(value = "/{id}", produces = "application/son")
+    @PutMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<ProductoDTO> modificar(@PathVariable Integer id, @RequestBody Producto datos) {
         ProductoDTO respuesta = this.servicio.actualizarProducto(id, datos);
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);

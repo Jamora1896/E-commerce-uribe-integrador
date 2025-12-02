@@ -27,7 +27,7 @@ public class EmpleadoControlador {
 
     //guardar
     @Operation(summary = "Crear un  empleado en la base de datos")
-    @PostMapping(produces = "application/son")
+    @PostMapping(produces = "application/json")
     public ResponseEntity<EmpleadoDTO> guardar(@RequestBody Empleado datos) {
         EmpleadoDTO respuesta = this.servicio.guardarEmpleado (datos);
         return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
@@ -35,7 +35,7 @@ public class EmpleadoControlador {
 
     //listar todos
     @Operation(summary = "Listar todos los empleados guardados en la base de datos")
-    @GetMapping(produces = "application/son")
+    @GetMapping(produces = "application/json")
     public ResponseEntity<List<EmpleadoDTO>> listar() {
         List<EmpleadoDTO> respuesta = this.servicio.buscarTodosLosEmpleados();
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
@@ -43,7 +43,7 @@ public class EmpleadoControlador {
 
     //buscar por ID
     @Operation(summary = "Buscar en la base de datos")
-    @GetMapping(value = "/{id}", produces = "application/son")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<EmpleadoDTO> buscarporId(@PathVariable Integer id) {
         EmpleadoDTO respuesta = this.servicio.buscarEmpleadoPorId(id);
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
@@ -52,7 +52,7 @@ public class EmpleadoControlador {
 
     //eliminar empleado por sede
     @Operation(summary="Eliminar empleados en la base de datos")
-    @DeleteMapping(value = "/{sede}", produces = "application/son")
+    @DeleteMapping(value = "/{sede}", produces = "application/json")
     public ResponseEntity<Void> eliminar(@PathVariable String sede){
         this.servicio.eliminarEmpleado(sede);
         return ResponseEntity.noContent().build();
@@ -60,7 +60,7 @@ public class EmpleadoControlador {
 
     //modificar
     @Operation(summary = "Modifica en la base de datos")
-    @PutMapping(value = "/{id}", produces = "application/son")
+    @PutMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<EmpleadoDTO> modificar(@PathVariable Integer id, @RequestBody Empleado datos) {
         EmpleadoDTO respuesta = this.servicio.actualizarEmpleado(id, datos);
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);

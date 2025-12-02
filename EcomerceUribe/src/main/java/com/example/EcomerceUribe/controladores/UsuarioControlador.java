@@ -29,7 +29,7 @@ public class UsuarioControlador {
 
     //guardar
     @Operation(summary = "Crear un usuario en la base de datos")
-    @PostMapping(produces = "application/son")
+    @PostMapping(produces = "application/json")
     public ResponseEntity<UsuarioGenericoDTO> guardar(@RequestBody Usuario datos) {
         UsuarioGenericoDTO respuesta = this.servicio.guardarUsuariogenerico(datos);
         return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
@@ -37,7 +37,7 @@ public class UsuarioControlador {
 
     //listar todos
     @Operation(summary = "Listar todos los usuarios guardados en la base de datos")
-    @GetMapping(produces = "application/son")
+    @GetMapping(produces = "application/json")
     public ResponseEntity<List<UsuarioGenericoDTO>> listar() {
         List<UsuarioGenericoDTO> respuesta = this.servicio.buscarTodosLosUsuarios();
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
@@ -45,7 +45,7 @@ public class UsuarioControlador {
 
     //buscar por ID
     @Operation(summary = "Buscar un usuario en la base de datos")
-    @GetMapping(value = "/{id}", produces = "application/son")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<UsuarioGenericoDTO> buscarporId(@PathVariable Integer id) {
         UsuarioGenericoDTO respuesta = this.servicio.buscarUsuarioGenericoPorId(id);
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
@@ -53,7 +53,7 @@ public class UsuarioControlador {
 
     //buscar por correo
     @Operation(summary = "Buscar un usuario en la base de datos")
-    @GetMapping(value = "/{correo}", produces = "application/son")
+    @GetMapping(value = "/{correo}", produces = "application/json")
     public ResponseEntity<UsuarioGenericoDTO> buscarporCorreo(@PathVariable String correo) {
         UsuarioGenericoDTO respuesta = this.servicio.buscarUsuarioGenericoPorCorreo(correo);
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
@@ -61,7 +61,7 @@ public class UsuarioControlador {
 
     //eliminar
     @Operation(summary = "Eliminar un usuario en la base de datos")
-    @DeleteMapping(value = "/{id}", produces = "application/son")
+    @DeleteMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
         this.servicio.eliminarUsuario(id);
         return ResponseEntity.noContent().build();
@@ -69,7 +69,7 @@ public class UsuarioControlador {
 
     //modificar
     @Operation(summary = "Modifica nombre y correo de  un usuario en la base de datos")
-    @PutMapping(value = "/{id}", produces = "application/son")
+    @PutMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<UsuarioGenericoDTO> modificar(@PathVariable Integer id, @RequestBody Usuario datos) {
         UsuarioGenericoDTO respuesta = this.servicio.actualizarUsuario(id, datos);
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);

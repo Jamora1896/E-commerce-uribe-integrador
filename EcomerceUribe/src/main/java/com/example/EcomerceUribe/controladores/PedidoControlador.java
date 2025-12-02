@@ -27,7 +27,7 @@ public class PedidoControlador {
 
     //guardar
     @Operation(summary = "Crear un  pedido en la base de datos")
-    @PostMapping(produces = "application/son")
+    @PostMapping(produces = "application/json")
     public ResponseEntity<PedidoDTO> guardar(@RequestBody Pedido datos) {
         PedidoDTO respuesta = this.servicio.guardarPedido (datos);
         return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
@@ -35,7 +35,7 @@ public class PedidoControlador {
 
     //listar todos
     @Operation(summary = "Listar todos los pedidos guardados en la base de datos")
-    @GetMapping(produces = "application/son")
+    @GetMapping(produces = "application/json")
     public ResponseEntity<List<PedidoDTO>> listar() {
         List<PedidoDTO> respuesta = this.servicio.buscarTodosLosPedidos();
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
@@ -43,7 +43,7 @@ public class PedidoControlador {
 
     //buscar por ID
     @Operation(summary = "Buscar pedidos en la base de datos")
-    @GetMapping(value = "/{id}", produces = "application/son")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<PedidoDTO> buscarporId(@PathVariable Integer id) {
         PedidoDTO respuesta = this.servicio.buscarPedidoPorId(id);
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
@@ -51,14 +51,14 @@ public class PedidoControlador {
 
     //eliminar pedido por fecha de creación
     @Operation(summary="Eliminar un pedido en la base de datos")
-    @DeleteMapping(value = "/{fechaCreacion}", produces = "application/son")
+    @DeleteMapping(value = "/{fechaCreacion}", produces = "application/json")
     public ResponseEntity<Void> eliminar(@PathVariable LocalDate fechaCreacion){
         this.servicio.eliminarPedido(fechaCreacion);
         return ResponseEntity.noContent().build();
     }
     //modificar
     @Operation(summary = "Modifica monto y fecha de creacion de pedidos en la base de datos")
-    @PutMapping(value = "/{id}", produces = "application/son")
+    @PutMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<PedidoDTO> modificar(@PathVariable Integer id, @RequestBody Pedido datos) {
         PedidoDTO respuesta = this.servicio.actualizarPedido(id, datos);
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
